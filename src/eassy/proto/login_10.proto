@@ -1,0 +1,18 @@
+syntax = "proto3";
+package protos;
+
+message Player_Info {
+    int32 uid = 1;
+    string nick = 2;
+
+}
+
+message C2S_Login_10001 {
+    string token = 1;
+    int32  accountId   = 2;
+}
+
+message S2C_Login_10001 {
+   int32 code = 1;
+   Player_Info info = 2;
+}

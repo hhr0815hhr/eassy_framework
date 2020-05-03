@@ -1,0 +1,12 @@
+master:
+  m1:
+    host: "127.0.0.1"
+    port: 3306
+    user: "root"
+    pass: "root"
+slaver:
+  s1:
+    host: "127.0.0.1"
+    port: 3306
+    user: "root"
+    pass: "root"
