@@ -10,13 +10,13 @@ import (
 
 const IsDev = true
 
-func init()  {
+func init() {
 	//todo 加载配置
 	conf.GetConf(IsDev)
 
 }
 
-func main()  {
+func main() {
 	// os.Args[0] == 执行文件的名字
 	// os.Args[1] == 第一个参数
 	//args := os.Args
@@ -29,17 +29,16 @@ func main()  {
 	//	panic("第一个参数要整数！！！port")
 	//	return
 	//}
-	port :="5050"
-	args := []string{"a","a","gate"}
+	args := []string{"eassy", "5050", "game"}
 	switch args[2] {
 	case "gate":
-		gate.Run(port)
+		gate.Run(args[1])
 	case "login":
-		login.Run(port)
+		login.Run(args[1])
 	case "game":
-		game.Run(port)
+		game.Run(args[1])
 	case "center":
-		center.Run(port)
+		center.Run(args[1])
 	default:
 		panic("参数错误！！！服务类型为 gate/login/game/center")
 		return

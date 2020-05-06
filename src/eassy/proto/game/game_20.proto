@@ -1,0 +1,17 @@
+syntax = "proto3";
+package protos.game;
+// 创建一个邮件服务
+service GameService {
+    rpc SendMail (MailRequest) returns (MailResponse) {
+    }
+}
+
+// 请求消息
+message MailRequest {
+    string Mail = 1;
+    string Text = 2;
+}
+// 响应消息
+message MailResponse {
+    bool Ok = 1;
+}
