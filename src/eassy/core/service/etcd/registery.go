@@ -31,7 +31,7 @@ type IService interface {
 func NewService(info ServiceInfo, endpoints []string) (*Service, error) {
 	cli, err := clientv3.New(clientv3.Config{
 		Endpoints:   endpoints,
-		DialTimeout: 2 * time.Second,
+		DialTimeout: 3 * time.Second,
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -61,7 +61,8 @@ func (s *Service) Start() error {
 				log.Println("keep alive channel closed")
 				return s.revoke()
 			}
-			log.Print("Recv reply from service : %s,ttl:%d", s.Info.Name, ka.TTL)
+			_ = ka
+			//log.Printf("Recv reply from service : %s,ttl:%d", s.Info.Name, ka.TTL)
 		}
 	}
 }
@@ -72,7 +73,7 @@ func (s *Service) Stop() {
 
 func (s *Service) keepAlive() (<-chan *clientv3.LeaseKeepAliveResponse, error) {
 	info := &s.Info
-	key := "services/" + s.Info.Name
+	key := s.Info.Name
 	value, _ := json.Marshal(info)
 
 	//min lease TTL is 5s

@@ -17,17 +17,17 @@ import (
 
 func TestService_SendMail(t *testing.T) {
 	r := etcdSerivce.NewResolver([]string{
-		"127.0.0.1:2379",
-		"127.0.0.1:22379",
-		"127.0.0.1:32379",
-	}, "game.mail")
+		"192.168.0.115:2379",
+		"192.168.0.115:22379",
+		"192.168.0.115:32379",
+	}, "game")
 	resolver.Register(r)
 
-	ctx, _ := context.WithTimeout(context.Background(), 3*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 2*time.Second)
 	// https://github.com/grpc/grpc/blob/master/doc/naming.md
 	// The gRPC client library will use the specified scheme to pick the right resolver plugin and pass it the fully qualified name string.
 
-	addr := fmt.Sprintf("%s:///%s", r.Scheme(), "game.mail" /*g.srv.mail经测试，这个可以随便写，底层只是取scheme对应的Build对象*/)
+	addr := fmt.Sprintf("%s:///%s", r.Scheme(), "game" /*g.srv.mail经测试，这个可以随便写，底层只是取scheme对应的Build对象*/)
 
 	conn, err := grpc.DialContext(ctx, addr, grpc.WithInsecure(),
 

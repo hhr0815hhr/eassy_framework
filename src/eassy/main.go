@@ -36,9 +36,9 @@ func main() {
 	case "login":
 		login.Run(args[1])
 	case "game":
-		game.Run(args[1])
+		game.Run(args[2], args[1])
 	case "center":
-		center.Run(args[1])
+		center.Run(args[2], args[1])
 	default:
 		panic("参数错误！！！服务类型为 gate/login/game/center")
 		return
