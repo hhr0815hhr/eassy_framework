@@ -29,7 +29,7 @@ func main() {
 	//	panic("第一个参数要整数！！！port")
 	//	return
 	//}
-	args := []string{"eassy", "5050", "game"}
+	args := []string{"eassy", "5020", "login"}
 	switch args[2] {
 	case "gate":
 		gate.Run(args[1])
