@@ -4,9 +4,8 @@
 
 etcd done
 grpc done
-db   todo
-game_logic todo
-login todo
-
+db   done
+login done
+game >>todo
 
 >> To be continued !
