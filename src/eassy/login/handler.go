@@ -15,6 +15,10 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 func checkHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
+	if len(r.Form) == 0 {
+		w.WriteHeader(400)
+		return
+	}
 	phone := r.Form["phone"][0]
 	token := r.Form["token"][0]
 	if util.CheckToken(phone, token) {
@@ -36,6 +40,10 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	//验证key
 	r.ParseForm()
+	if len(r.Form) == 0 {
+		w.WriteHeader(400)
+		return
+	}
 	phone := r.Form["phone"][0]
 	accPwd := r.Form["accPwd"][0]
 	reqType := r.Form["reqType"][0]

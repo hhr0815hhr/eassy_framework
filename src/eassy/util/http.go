@@ -45,6 +45,31 @@ func ClientIP(r *http.Request) string {
 	return ""
 }
 
+func ServerIP() (bo bool, ip string) {
+	netInterfaces, err := net.Interfaces()
+	if err != nil {
+		//fmt.Println("net.Interfaces failed, err:", err.Error())
+		return
+	}
+
+	for i := 0; i < len(netInterfaces); i++ {
+		if (netInterfaces[i].Flags & net.FlagUp) != 0 {
+			addrs, _ := netInterfaces[i].Addrs()
+			for _, address := range addrs {
+				//fmt.Println(address)
+				if ipnet, ok := address.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
+					if ipnet.IP.To4() != nil {
+						ip = ipnet.IP.String()
+						bo = true
+						return
+					}
+				}
+			}
+		}
+	}
+	return
+}
+
 func Ip2long(ipstr string) uint32 {
 	ip := net.ParseIP(ipstr)
 	if ip == nil {
