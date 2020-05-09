@@ -1,0 +1,41 @@
+syntax = "proto3";
+package protos;
+
+// 创建一个邮件服务
+service UserService {
+    rpc Login (C2S_Login_10001) returns (S2C_Login_10001) {}
+    rpc SetNick (C2S_SetNick_10002) returns (S2C_SetNick_10002) {}
+}
+
+message Player_Info {
+    int64 uid = 1;
+    int64 accountId = 2;
+    string nick = 3;
+    int32 level = 4;
+    int64 coin  = 5;
+    int64 diamond = 6;
+    string headImg = 7;
+}
+
+message C2S_Login_10001 {
+    string token = 1;
+    int64  accountId   = 2;
+}
+message S2C_Login_10001 {
+    int32 code = 1;
+    Player_Info info = 2;
+}
+
+message C2S_SetNick_10002 {
+    int64 uid = 1;
+    string imgUrl = 2;
+}
+message S2C_SetNick_10002 {
+    int32 ok = 1;
+}
+
+
+
+
+
+

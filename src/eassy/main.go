@@ -6,6 +6,7 @@ import (
 	"game_framework/src/eassy/game"
 	"game_framework/src/eassy/gate"
 	"game_framework/src/eassy/login"
+	"game_framework/src/eassy/user"
 	"os"
 )
 
@@ -27,12 +28,14 @@ func main() {
 	}
 	//args := []string{"eassy", "5020", "login"}
 	switch args[2] {
-	case "gate":
-		gate.Run(args[1])
 	case "login":
 		login.Run(args[1])
+	case "gate":
+		gate.Run(args[1])
 	case "game":
 		game.Run(args[2], args[1])
+	case "user":
+		user.Run(args[2], args[1])
 	case "center":
 		center.Run(args[2], args[1])
 	default:

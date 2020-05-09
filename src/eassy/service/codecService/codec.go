@@ -7,17 +7,17 @@ import (
 )
 
 const (
-	TYPE_CODEC_JSON = "json"
+	TYPE_CODEC_JSON     = "json"
 	TYPE_CODEC_PROTOBUF = "protobuf"
 )
 
-var codecType = TYPE_CODEC_JSON
+var codecType = TYPE_CODEC_PROTOBUF
 var codec Codec
 var once sync.Once
 
 type Codec interface {
 	// must goroutine safe
-	Unmarshal(route uint16, data []byte) (interface{}, error)
+	Unmarshal(route interface{}, data []byte) (interface{}, error)
 	// must goroutine safe
 	Marshal(msg interface{}) ([]byte, error)
 }

@@ -1,23 +1,33 @@
 package gate
 
 import (
-	"fmt"
 	"golang.org/x/net/websocket"
 	"net/http"
 )
 
-func Run(port string)  {
-	http.Handle("/eassy",websocket.Handler(handler))
-	err := http.ListenAndServe("0.0.0.0:"+port,nil)
+/** gate节点采用websocket
+ *
+ */
+func Run(port string) {
+	http.Handle("/eassy", websocket.Handler(handler))
+	err := http.ListenAndServe(":"+port, nil)
 	if err != nil {
 		panic(err)
 	}
 }
 
-func handler(ws *websocket.Conn)  {
-	data := ws.Request().URL.Query().Get("data")
-	fmt.Println("data:", data)
-
+func handler(ws *websocket.Conn) {
+	cli := CliManager.Connect(ws)
+	go cli.RecvData()
+	//data := ws.Request().URL.Query().Get("data")
+	//fmt.Println("data:", data)
+	//for {
+	//	//var data []byte
+	//	//
+	//	//if err = websocket.Message.Receive(ws, data); err != nil {
+	//	//	fmt.Println(err)
+	//	//	continue
+	//	//}
+	//
+	//}
 }
-
-

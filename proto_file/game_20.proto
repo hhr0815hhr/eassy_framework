@@ -1,5 +1,5 @@
 syntax = "proto3";
-package protos.game;
+package protos;
 // 创建一个邮件服务
 service GameService {
     rpc SendMail (MailRequest) returns (MailResponse) {

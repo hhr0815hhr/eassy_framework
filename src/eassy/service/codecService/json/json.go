@@ -1,7 +1,6 @@
 package json
 
 type JsonCodec struct {
-
 }
 
 func NewCodec() *JsonCodec {
@@ -9,16 +8,13 @@ func NewCodec() *JsonCodec {
 	return p
 }
 
-
 // goroutine safe
-func (p *JsonCodec) Unmarshal(route uint16, data []byte) (interface{}, error) {
+func (p *JsonCodec) Unmarshal(route interface{}, data []byte) (interface{}, error) {
 
-	return nil,nil
+	return nil, nil
 }
 
 // goroutine safe
 func (p *JsonCodec) Marshal(msg interface{}) ([]byte, error) {
-	return nil,nil
+	return nil, nil
 }
-
-
