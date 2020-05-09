@@ -9,7 +9,7 @@ func NewCodec() *JsonCodec {
 }
 
 // goroutine safe
-func (p *JsonCodec) Unmarshal(route interface{}, data []byte) (interface{}, error) {
+func (p *JsonCodec) Unmarshal(route int, data []byte) (interface{}, error) {
 
 	return nil, nil
 }

@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"fmt"
-	pb "game_framework/src/eassy/proto/game"
+	pb "game_framework/src/eassy/proto"
 )
 
 type GameService struct {

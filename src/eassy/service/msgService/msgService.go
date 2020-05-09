@@ -12,17 +12,23 @@ var once sync.Once
 func GetMsgService() *msgMgr {
 	once.Do(func() {
 		msgMgrSingleton = &msgMgr{
-			msgMap:   map[int]string{},
-			msgArray: make([]*MsgInfo, 0),
+			msgMap:    map[int]*MsgInfo{},
+			methodMap: map[string]interface{}{},
 		}
 	})
 	return msgMgrSingleton
 }
 
 type msgMgr struct {
-	msgMap   map[int]string
-	msgArray []*MsgInfo
+	msgMap    map[int]*MsgInfo
+	methodMap map[string]interface{}
 }
+
+//methodMap := map[string]interface{}{
+//"SetName": p.SetName,
+//"GetName": p.GetName,
+//"SetAge":  p.SetAge,
+//"GetAge":  p.GetAge,
 
 type MsgInfo struct {
 	Route       string
@@ -30,7 +36,7 @@ type MsgInfo struct {
 	MsgRespType reflect.Type
 }
 
-func (m *msgMgr) Register(route int, msgReq interface{}, msgResp interface{}) {
+func (m *msgMgr) Register(route int, fun interface{}, method string, msgReq interface{}, msgResp interface{}) {
 	msgType := reflect.TypeOf(msgReq)
 	if msgType == nil || msgType.Kind() != reflect.Ptr {
 		log.Fatal("message request pointer required")
@@ -48,44 +54,37 @@ func (m *msgMgr) Register(route int, msgReq interface{}, msgResp interface{}) {
 	}
 
 	i := new(MsgInfo)
-	i.Route = route
+	i.Route = method
 	i.MsgReqType = msgType
 	i.MsgRespType = msgRespType
+	m.msgMap[route] = i
+	m.methodMap[method] = fun
 
-	m.msgMap[route] = uint16(len(m.msgArray) + 1)
-	m.msgArray = append(m.msgArray, i)
 }
 
-func (m *msgMgr) RegisterPush(route string) {
+func (m *msgMgr) RegisterPush(route int, method string) {
 	if _, ok := m.msgMap[route]; ok {
 		log.Fatal("route %s is already registered", route)
 		return
 	}
-
 	i := new(MsgInfo)
-	i.Route = route
-
-	m.msgMap[route] = uint16(len(m.msgArray) + 1)
-	m.msgArray = append(m.msgArray, i)
+	i.Route = method
+	m.msgMap[route] = i
 }
 
-func (m *msgMgr) GetMsgByRouteId(route int) *MsgInfo {
-	if route > len(m.msgArray) {
-		log.Fatal("routeId is out of range")
-		return nil
+func (m *msgMgr) GetMsgByRouteId(route int) (info *MsgInfo, ok bool) {
+	info, ok = m.msgMap[route]
+	return
+}
+
+func (m *msgMgr) GetMethodByRouteId(route int) (method string) {
+	info, ok := m.msgMap[route]
+	if !ok {
+		return ""
 	}
-	return m.msgArray[route-1]
+	return info.Route
 }
 
-func (m *msgMgr) GetMsgByRoute(route string) *MsgInfo {
-	routeId := m.msgMap[route]
-	return m.msgArray[routeId-1]
-}
-
-func (m *msgMgr) GetRouteId(route string) uint16 {
-	return m.msgMap[route]
-}
-
-func (m *msgMgr) GetMsgMap() map[string]uint16 {
+func (m *msgMgr) GetMsgMap() map[int]*MsgInfo {
 	return m.msgMap
 }

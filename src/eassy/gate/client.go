@@ -83,11 +83,13 @@ func (p *Cli) handleData(content []byte) {
 	case msg.TYPE_DATA:
 		//dispatch
 		protoId, buffer := msg.MsgUnpack(body)
-		codecService.GetCodecService().Unmarshal(buffer, protoMsg)
+		protoMsg, err := codecService.GetCodecService().Unmarshal(protoId, buffer)
 		if err != nil {
 			return
 		}
-		dispatch.Dispatch(protoId, protoMsg)
+		resp := dispatch.Dispatch(protoId, protoMsg)
+		bytes, _ := codecService.GetCodecService().Marshal(resp)
+		p.Send(protoId, bytes)
 	case msg.TYPE_HANDSHAKE, msg.TYPE_HANDSHAKE_ACK, msg.TYPE_KICK:
 		//skip
 	default:

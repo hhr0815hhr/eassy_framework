@@ -6,16 +6,15 @@ import (
 	"game_framework/src/eassy/conf"
 	etcdSerivce "game_framework/src/eassy/core/service/etcd"
 	pb "game_framework/src/eassy/proto"
+	"game_framework/src/eassy/service/msgService"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/resolver"
 	"log"
 	"time"
 )
 
-var ServiceRoute map[int]string
-
-func Dispatch(protoId int, msg []byte) {
-	call, ok := ServiceRoute[protoId]
+func Dispatch(protoId int, msg interface{}) (resp interface{}) {
+	_, ok := msgService.GetMsgService().GetMsgByRouteId(protoId)
 	if !ok {
 		log.Fatal("非法protoID")
 		return
@@ -29,21 +28,16 @@ func Dispatch(protoId int, msg []byte) {
 	}
 
 	//实例化service客户端
-	var c interface{}
 	switch protoPrefix {
 	case 1:
-		c = pb.NewUserServiceClient(conn)
+		c := pb.NewUserServiceClient(conn)
+		resp = userHandle(c, msgService.GetMsgService().GetMethodByRouteId(protoId), msg)
 	case 2:
-		c = pb.NewGameServiceClient(conn)
+		c := pb.NewGameServiceClient(conn)
+		resp = gameHandle(c, msgService.GetMsgService().GetMethodByRouteId(protoId), msg)
 	default:
-
 	}
-
-	resp, err := c.call(context.TODO(), &pb.MailRequest{
-		Mail: "qq@mail.com",
-		Text: "test,test",
-	})
-	log.Print(resp)
+	return
 }
 
 func getServiceNode(nodeType string) (*grpc.ClientConn, error) {
