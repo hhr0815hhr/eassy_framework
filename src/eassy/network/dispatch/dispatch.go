@@ -21,6 +21,7 @@ func Dispatch(protoId int, msg interface{}) (resp interface{}) {
 	}
 	protoPrefix := protoId / 10000
 	var nodeTypeList = []string{"", "user", "game"}
+
 	conn, err := getServiceNode(nodeTypeList[protoPrefix])
 	if err != nil {
 		log.Fatal(err)

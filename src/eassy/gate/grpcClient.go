@@ -12,4 +12,5 @@ var us *user.UserService
 
 func init() {
 	msgService.GetMsgService().Register(10001, us.Login, "Login", &pb.C2S_Login_10001{}, &pb.S2C_Login_10001{})
+	//msgService.GetMsgService().Register(10001, us.Login, "Login", &pb.C2S_Login_10001{}, &pb.S2C_Login_10001{})
 }

@@ -6,6 +6,7 @@ import (
 	"game_framework/src/eassy/service/msgService"
 	"github.com/golang/protobuf/proto"
 	"hash/crc32"
+	"log"
 	"reflect"
 )
 
@@ -27,11 +28,13 @@ func (p *ProtobufCodec) SetByteOrder(littleEndian bool) {
 // goroutine safe
 func (p *ProtobufCodec) Unmarshal(route int, data []byte) (res interface{}, err error) {
 	info, ok := msgService.GetMsgService().GetMsgByRouteId(route)
+	res = reflect.New(info.MsgReqType.Elem()).Interface()
 	if !ok {
 		return
 	}
-	err = proto.UnmarshalMerge(data, info.MsgReqType.(proto.Message))
+	err = proto.UnmarshalMerge(data, res.(proto.Message))
 	if err != nil {
+		log.Fatal(err)
 		return
 	}
 	return

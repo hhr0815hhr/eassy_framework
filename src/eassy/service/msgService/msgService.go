@@ -12,16 +12,14 @@ var once sync.Once
 func GetMsgService() *msgMgr {
 	once.Do(func() {
 		msgMgrSingleton = &msgMgr{
-			msgMap:    map[int]*MsgInfo{},
-			methodMap: map[string]interface{}{},
+			msgMap: map[int]*MsgInfo{},
 		}
 	})
 	return msgMgrSingleton
 }
 
 type msgMgr struct {
-	msgMap    map[int]*MsgInfo
-	methodMap map[string]interface{}
+	msgMap map[int]*MsgInfo
 }
 
 //methodMap := map[string]interface{}{
@@ -58,7 +56,6 @@ func (m *msgMgr) Register(route int, fun interface{}, method string, msgReq inte
 	i.MsgReqType = msgType
 	i.MsgRespType = msgRespType
 	m.msgMap[route] = i
-	m.methodMap[method] = fun
 
 }
 

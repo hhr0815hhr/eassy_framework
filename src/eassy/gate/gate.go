@@ -18,7 +18,8 @@ func Run(port string) {
 
 func handler(ws *websocket.Conn) {
 	cli := CliManager.Connect(ws)
-	go cli.RecvData()
+	cli.RecvData()
+
 	//data := ws.Request().URL.Query().Get("data")
 	//fmt.Println("data:", data)
 	//for {

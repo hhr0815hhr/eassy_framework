@@ -1,13 +1,28 @@
 package dispatch
 
+import (
+	pb "game_framework/src/eassy/proto"
+)
+
+var funcMap map[string]interface{}
+var userFlag bool
+var gameFlag bool
+
 func init() {
-	ServiceRoute = make(map[int]string)
-	regProto()
+	funcMap = make(map[string]interface{})
+	userFlag = false
+	gameFlag = false
 }
 
-//注册路由
-func regProto() {
-	ServiceRoute[10001] = "Login"
-	ServiceRoute[10002] = "SetNick"
+func initUserFuncMap(cUser pb.UserServiceClient) {
+	funcMap["Login"] = cUser.Login
+	userFlag = true
+	//funcMap["SendMail"] = cGame.SendMail
+}
 
+func initGameFuncMap(cGame pb.GameServiceClient) {
+	funcMap["SendMail"] = cGame.SendMail
+
+	//funcMap["SendMail"] = cGame.SendMail
+	gameFlag = true
 }
