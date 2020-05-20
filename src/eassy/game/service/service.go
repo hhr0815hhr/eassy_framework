@@ -43,7 +43,8 @@ func (s *GameService) JoinRoom(ctx context.Context, req *pb.C2S_JoinRoom_20002) 
 }
 
 func (s *GameService) LeaveRoom(ctx context.Context, req *pb.C2S_LeaveRoom_20003) (res *pb.S2C_LeaveRoom_20003, err error) {
-	//todo
+	room := game.RoomMgr.GetRoom(int(req.RoomId))
+	room.LeaveRoom(req.Uid)
 	return &pb.S2C_LeaveRoom_20003{Ret: 0}, nil
 }
 

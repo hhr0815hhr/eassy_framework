@@ -12,6 +12,7 @@ type IRoomManager interface {
 	DestroyRoom(roomId int)
 	Join(playerId int64, roomId int)
 	GetRooms() (rooms map[int]*roomBrief)
+	GetRoom(roomId int) *Room
 }
 
 var RoomMgr *RoomList
@@ -64,4 +65,10 @@ func (p *RoomList) GetRooms() (rooms map[int]*roomBrief) {
 		rooms[k].PlayerNums = len(p.RoomList[k].Players)
 	}
 	return
+}
+
+func (p *RoomList) GetRoom(roomId int) *Room {
+	p.Locker.RLock()
+	defer p.Locker.RUnlock()
+	return p.RoomList[roomId]
 }

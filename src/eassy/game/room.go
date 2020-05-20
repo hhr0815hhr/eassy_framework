@@ -39,6 +39,7 @@ func CreateRoom(roomType string) *Room {
 
 type IRoom interface {
 	JoinRoom(playerId int64)
+	LeaveRoom(playerId int64)
 	Ready(pos int)
 	StartGame()
 	CallBoss(pos int, flag int)
@@ -54,16 +55,35 @@ func (p *Room) ticker(duration time.Duration, f func()) {
 func (p *Room) JoinRoom(playerId int64) {
 	p.Locker.Lock()
 	defer p.Locker.Unlock()
+	var pos int
+	if p.Players[0] == nil {
+		pos = 0
+	} else {
+		if p.Players[1] == nil {
+			pos = 1
+		} else {
+			pos = 2
+		}
+	}
 	newer := &RoomPlayer{
-		Uid:  playerId,
-		Nick: "",
-		Icon: "",
-
+		Uid:    playerId,
+		Nick:   "",
+		Icon:   "",
 		Coin:   100,
 		Status: 0,
-		Pos:    len(p.Players),
+		Pos:    pos,
 	}
 	p.Players[newer.Pos] = newer
+}
+
+func (p *Room) LeaveRoom(playerId int64) {
+	p.Locker.Lock()
+	defer p.Locker.Unlock()
+	for k, v := range p.Players {
+		if v.Uid == playerId {
+			delete(p.Players, k)
+		}
+	}
 }
 
 func (p *Room) Ready(pos int) {

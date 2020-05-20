@@ -46,6 +46,7 @@ message S2C_JoinRoom_20002 {
 
 message C2S_LeaveRoom_20003 {
     int64 uid =1;
+    int32 roomId = 2;
 }
 
 message S2C_LeaveRoom_20003 {
