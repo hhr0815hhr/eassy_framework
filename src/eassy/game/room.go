@@ -44,7 +44,7 @@ type IRoom interface {
 	CallBoss(pos int, flag int)
 	PutCards(pos int, cards []int)
 	endGame()
-	ticker(duration time.Duration, f func())
+	ticker(duration time.Duration, f func()) //房间内定时器，定时执行func f()
 }
 
 func (p *Room) ticker(duration time.Duration, f func()) {

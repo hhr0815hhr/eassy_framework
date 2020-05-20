@@ -2,9 +2,57 @@ syntax = "proto3";
 package protos;
 // 创建一个邮件服务
 service GameService {
-    rpc SendMail (MailRequest) returns (MailResponse) {
-    }
+    rpc SendMail (MailRequest) returns (MailResponse) {}
+    rpc GetRoomList (C2S_GetRoomList_20000) returns (S2C_GetRoomList_20000) {}
+    rpc CreateRoom (C2S_CreateRoom_20001) returns (S2C_CreateRoom_20001) {}
+    rpc JoinRoom (C2S_JoinRoom_20002) returns (S2C_JoinRoom_20002) {}
+    rpc LeaveRoom (C2S_LeaveRoom_20003) returns (S2C_LeaveRoom_20003) {}
+
 }
+
+message RoomBriefInfo {
+    int32 roomId =1;
+    int32 playerNum = 2;
+}
+
+message C2S_GetRoomList_20000 {
+    int64 uid = 1;
+}
+
+message S2C_GetRoomList_20000 {
+    int32 ret = 1;
+    repeated RoomBriefInfo room = 2;
+}
+
+message C2S_CreateRoom_20001 {
+    int64 uid = 1;
+}
+
+message S2C_CreateRoom_20001 {
+    int32 ret    = 1;// 0成功 1失败
+    int32 roomId = 2;
+}
+
+message C2S_JoinRoom_20002 {
+    int64 uid = 1;
+    int32 roomId = 2;
+}
+
+message S2C_JoinRoom_20002 {
+    int32 ret    = 1;// 0成功 1失败
+    int32 roomId = 2;
+}
+
+
+message C2S_LeaveRoom_20003 {
+    int64 uid =1;
+}
+
+message S2C_LeaveRoom_20003 {
+    int32 ret =1;
+}
+
+
 
 // 请求消息
 message MailRequest {

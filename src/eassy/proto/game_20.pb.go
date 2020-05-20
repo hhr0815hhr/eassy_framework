@@ -9,11 +9,22 @@ It is generated from these files:
 	user_10.proto
 
 It has these top-level messages:
+	RoomBriefInfo
+	C2S_GetRoomList_20000
+	S2C_GetRoomList_20000
+	C2S_CreateRoom_20001
+	S2C_CreateRoom_20001
+	C2S_JoinRoom_20002
+	S2C_JoinRoom_20002
+	C2S_LeaveRoom_20003
+	S2C_LeaveRoom_20003
 	MailRequest
 	MailResponse
 	Player_Info
 	C2S_Login_10001
 	S2C_Login_10001
+	C2S_SetNick_10002
+	S2C_SetNick_10002
 */
 package protos
 
@@ -37,6 +48,190 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
+type RoomBriefInfo struct {
+	RoomId    int32 `protobuf:"varint,1,opt,name=roomId" json:"roomId,omitempty"`
+	PlayerNum int32 `protobuf:"varint,2,opt,name=playerNum" json:"playerNum,omitempty"`
+}
+
+func (m *RoomBriefInfo) Reset()                    { *m = RoomBriefInfo{} }
+func (m *RoomBriefInfo) String() string            { return proto.CompactTextString(m) }
+func (*RoomBriefInfo) ProtoMessage()               {}
+func (*RoomBriefInfo) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
+
+func (m *RoomBriefInfo) GetRoomId() int32 {
+	if m != nil {
+		return m.RoomId
+	}
+	return 0
+}
+
+func (m *RoomBriefInfo) GetPlayerNum() int32 {
+	if m != nil {
+		return m.PlayerNum
+	}
+	return 0
+}
+
+type C2S_GetRoomList_20000 struct {
+	Uid int64 `protobuf:"varint,1,opt,name=uid" json:"uid,omitempty"`
+}
+
+func (m *C2S_GetRoomList_20000) Reset()                    { *m = C2S_GetRoomList_20000{} }
+func (m *C2S_GetRoomList_20000) String() string            { return proto.CompactTextString(m) }
+func (*C2S_GetRoomList_20000) ProtoMessage()               {}
+func (*C2S_GetRoomList_20000) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
+
+func (m *C2S_GetRoomList_20000) GetUid() int64 {
+	if m != nil {
+		return m.Uid
+	}
+	return 0
+}
+
+type S2C_GetRoomList_20000 struct {
+	Ret  int32            `protobuf:"varint,1,opt,name=ret" json:"ret,omitempty"`
+	Room []*RoomBriefInfo `protobuf:"bytes,2,rep,name=room" json:"room,omitempty"`
+}
+
+func (m *S2C_GetRoomList_20000) Reset()                    { *m = S2C_GetRoomList_20000{} }
+func (m *S2C_GetRoomList_20000) String() string            { return proto.CompactTextString(m) }
+func (*S2C_GetRoomList_20000) ProtoMessage()               {}
+func (*S2C_GetRoomList_20000) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
+
+func (m *S2C_GetRoomList_20000) GetRet() int32 {
+	if m != nil {
+		return m.Ret
+	}
+	return 0
+}
+
+func (m *S2C_GetRoomList_20000) GetRoom() []*RoomBriefInfo {
+	if m != nil {
+		return m.Room
+	}
+	return nil
+}
+
+type C2S_CreateRoom_20001 struct {
+	Uid int64 `protobuf:"varint,1,opt,name=uid" json:"uid,omitempty"`
+}
+
+func (m *C2S_CreateRoom_20001) Reset()                    { *m = C2S_CreateRoom_20001{} }
+func (m *C2S_CreateRoom_20001) String() string            { return proto.CompactTextString(m) }
+func (*C2S_CreateRoom_20001) ProtoMessage()               {}
+func (*C2S_CreateRoom_20001) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{3} }
+
+func (m *C2S_CreateRoom_20001) GetUid() int64 {
+	if m != nil {
+		return m.Uid
+	}
+	return 0
+}
+
+type S2C_CreateRoom_20001 struct {
+	Ret    int32 `protobuf:"varint,1,opt,name=ret" json:"ret,omitempty"`
+	RoomId int32 `protobuf:"varint,2,opt,name=roomId" json:"roomId,omitempty"`
+}
+
+func (m *S2C_CreateRoom_20001) Reset()                    { *m = S2C_CreateRoom_20001{} }
+func (m *S2C_CreateRoom_20001) String() string            { return proto.CompactTextString(m) }
+func (*S2C_CreateRoom_20001) ProtoMessage()               {}
+func (*S2C_CreateRoom_20001) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{4} }
+
+func (m *S2C_CreateRoom_20001) GetRet() int32 {
+	if m != nil {
+		return m.Ret
+	}
+	return 0
+}
+
+func (m *S2C_CreateRoom_20001) GetRoomId() int32 {
+	if m != nil {
+		return m.RoomId
+	}
+	return 0
+}
+
+type C2S_JoinRoom_20002 struct {
+	Uid    int64 `protobuf:"varint,1,opt,name=uid" json:"uid,omitempty"`
+	RoomId int32 `protobuf:"varint,2,opt,name=roomId" json:"roomId,omitempty"`
+}
+
+func (m *C2S_JoinRoom_20002) Reset()                    { *m = C2S_JoinRoom_20002{} }
+func (m *C2S_JoinRoom_20002) String() string            { return proto.CompactTextString(m) }
+func (*C2S_JoinRoom_20002) ProtoMessage()               {}
+func (*C2S_JoinRoom_20002) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{5} }
+
+func (m *C2S_JoinRoom_20002) GetUid() int64 {
+	if m != nil {
+		return m.Uid
+	}
+	return 0
+}
+
+func (m *C2S_JoinRoom_20002) GetRoomId() int32 {
+	if m != nil {
+		return m.RoomId
+	}
+	return 0
+}
+
+type S2C_JoinRoom_20002 struct {
+	Ret    int32 `protobuf:"varint,1,opt,name=ret" json:"ret,omitempty"`
+	RoomId int32 `protobuf:"varint,2,opt,name=roomId" json:"roomId,omitempty"`
+}
+
+func (m *S2C_JoinRoom_20002) Reset()                    { *m = S2C_JoinRoom_20002{} }
+func (m *S2C_JoinRoom_20002) String() string            { return proto.CompactTextString(m) }
+func (*S2C_JoinRoom_20002) ProtoMessage()               {}
+func (*S2C_JoinRoom_20002) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{6} }
+
+func (m *S2C_JoinRoom_20002) GetRet() int32 {
+	if m != nil {
+		return m.Ret
+	}
+	return 0
+}
+
+func (m *S2C_JoinRoom_20002) GetRoomId() int32 {
+	if m != nil {
+		return m.RoomId
+	}
+	return 0
+}
+
+type C2S_LeaveRoom_20003 struct {
+	Uid int64 `protobuf:"varint,1,opt,name=uid" json:"uid,omitempty"`
+}
+
+func (m *C2S_LeaveRoom_20003) Reset()                    { *m = C2S_LeaveRoom_20003{} }
+func (m *C2S_LeaveRoom_20003) String() string            { return proto.CompactTextString(m) }
+func (*C2S_LeaveRoom_20003) ProtoMessage()               {}
+func (*C2S_LeaveRoom_20003) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{7} }
+
+func (m *C2S_LeaveRoom_20003) GetUid() int64 {
+	if m != nil {
+		return m.Uid
+	}
+	return 0
+}
+
+type S2C_LeaveRoom_20003 struct {
+	Ret int32 `protobuf:"varint,1,opt,name=ret" json:"ret,omitempty"`
+}
+
+func (m *S2C_LeaveRoom_20003) Reset()                    { *m = S2C_LeaveRoom_20003{} }
+func (m *S2C_LeaveRoom_20003) String() string            { return proto.CompactTextString(m) }
+func (*S2C_LeaveRoom_20003) ProtoMessage()               {}
+func (*S2C_LeaveRoom_20003) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{8} }
+
+func (m *S2C_LeaveRoom_20003) GetRet() int32 {
+	if m != nil {
+		return m.Ret
+	}
+	return 0
+}
+
 // 请求消息
 type MailRequest struct {
 	Mail string `protobuf:"bytes,1,opt,name=Mail" json:"Mail,omitempty"`
@@ -46,7 +241,7 @@ type MailRequest struct {
 func (m *MailRequest) Reset()                    { *m = MailRequest{} }
 func (m *MailRequest) String() string            { return proto.CompactTextString(m) }
 func (*MailRequest) ProtoMessage()               {}
-func (*MailRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
+func (*MailRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{9} }
 
 func (m *MailRequest) GetMail() string {
 	if m != nil {
@@ -70,7 +265,7 @@ type MailResponse struct {
 func (m *MailResponse) Reset()                    { *m = MailResponse{} }
 func (m *MailResponse) String() string            { return proto.CompactTextString(m) }
 func (*MailResponse) ProtoMessage()               {}
-func (*MailResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
+func (*MailResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{10} }
 
 func (m *MailResponse) GetOk() bool {
 	if m != nil {
@@ -80,6 +275,15 @@ func (m *MailResponse) GetOk() bool {
 }
 
 func init() {
+	proto.RegisterType((*RoomBriefInfo)(nil), "protos.RoomBriefInfo")
+	proto.RegisterType((*C2S_GetRoomList_20000)(nil), "protos.C2S_GetRoomList_20000")
+	proto.RegisterType((*S2C_GetRoomList_20000)(nil), "protos.S2C_GetRoomList_20000")
+	proto.RegisterType((*C2S_CreateRoom_20001)(nil), "protos.C2S_CreateRoom_20001")
+	proto.RegisterType((*S2C_CreateRoom_20001)(nil), "protos.S2C_CreateRoom_20001")
+	proto.RegisterType((*C2S_JoinRoom_20002)(nil), "protos.C2S_JoinRoom_20002")
+	proto.RegisterType((*S2C_JoinRoom_20002)(nil), "protos.S2C_JoinRoom_20002")
+	proto.RegisterType((*C2S_LeaveRoom_20003)(nil), "protos.C2S_LeaveRoom_20003")
+	proto.RegisterType((*S2C_LeaveRoom_20003)(nil), "protos.S2C_LeaveRoom_20003")
 	proto.RegisterType((*MailRequest)(nil), "protos.MailRequest")
 	proto.RegisterType((*MailResponse)(nil), "protos.MailResponse")
 }
@@ -96,6 +300,10 @@ const _ = grpc.SupportPackageIsVersion4
 
 type GameServiceClient interface {
 	SendMail(ctx context.Context, in *MailRequest, opts ...grpc.CallOption) (*MailResponse, error)
+	GetRoomList(ctx context.Context, in *C2S_GetRoomList_20000, opts ...grpc.CallOption) (*S2C_GetRoomList_20000, error)
+	CreateRoom(ctx context.Context, in *C2S_CreateRoom_20001, opts ...grpc.CallOption) (*S2C_CreateRoom_20001, error)
+	JoinRoom(ctx context.Context, in *C2S_JoinRoom_20002, opts ...grpc.CallOption) (*S2C_JoinRoom_20002, error)
+	LeaveRoom(ctx context.Context, in *C2S_LeaveRoom_20003, opts ...grpc.CallOption) (*S2C_LeaveRoom_20003, error)
 }
 
 type gameServiceClient struct {
@@ -115,10 +323,50 @@ func (c *gameServiceClient) SendMail(ctx context.Context, in *MailRequest, opts 
 	return out, nil
 }
 
+func (c *gameServiceClient) GetRoomList(ctx context.Context, in *C2S_GetRoomList_20000, opts ...grpc.CallOption) (*S2C_GetRoomList_20000, error) {
+	out := new(S2C_GetRoomList_20000)
+	err := grpc.Invoke(ctx, "/protos.GameService/GetRoomList", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gameServiceClient) CreateRoom(ctx context.Context, in *C2S_CreateRoom_20001, opts ...grpc.CallOption) (*S2C_CreateRoom_20001, error) {
+	out := new(S2C_CreateRoom_20001)
+	err := grpc.Invoke(ctx, "/protos.GameService/CreateRoom", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gameServiceClient) JoinRoom(ctx context.Context, in *C2S_JoinRoom_20002, opts ...grpc.CallOption) (*S2C_JoinRoom_20002, error) {
+	out := new(S2C_JoinRoom_20002)
+	err := grpc.Invoke(ctx, "/protos.GameService/JoinRoom", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gameServiceClient) LeaveRoom(ctx context.Context, in *C2S_LeaveRoom_20003, opts ...grpc.CallOption) (*S2C_LeaveRoom_20003, error) {
+	out := new(S2C_LeaveRoom_20003)
+	err := grpc.Invoke(ctx, "/protos.GameService/LeaveRoom", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for GameService service
 
 type GameServiceServer interface {
 	SendMail(context.Context, *MailRequest) (*MailResponse, error)
+	GetRoomList(context.Context, *C2S_GetRoomList_20000) (*S2C_GetRoomList_20000, error)
+	CreateRoom(context.Context, *C2S_CreateRoom_20001) (*S2C_CreateRoom_20001, error)
+	JoinRoom(context.Context, *C2S_JoinRoom_20002) (*S2C_JoinRoom_20002, error)
+	LeaveRoom(context.Context, *C2S_LeaveRoom_20003) (*S2C_LeaveRoom_20003, error)
 }
 
 func RegisterGameServiceServer(s *grpc.Server, srv GameServiceServer) {
@@ -143,6 +391,78 @@ func _GameService_SendMail_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _GameService_GetRoomList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(C2S_GetRoomList_20000)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GameServiceServer).GetRoomList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/protos.GameService/GetRoomList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GameServiceServer).GetRoomList(ctx, req.(*C2S_GetRoomList_20000))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _GameService_CreateRoom_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(C2S_CreateRoom_20001)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GameServiceServer).CreateRoom(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/protos.GameService/CreateRoom",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GameServiceServer).CreateRoom(ctx, req.(*C2S_CreateRoom_20001))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _GameService_JoinRoom_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(C2S_JoinRoom_20002)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GameServiceServer).JoinRoom(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/protos.GameService/JoinRoom",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GameServiceServer).JoinRoom(ctx, req.(*C2S_JoinRoom_20002))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _GameService_LeaveRoom_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(C2S_LeaveRoom_20003)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GameServiceServer).LeaveRoom(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/protos.GameService/LeaveRoom",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GameServiceServer).LeaveRoom(ctx, req.(*C2S_LeaveRoom_20003))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _GameService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "protos.GameService",
 	HandlerType: (*GameServiceServer)(nil),
@@ -150,6 +470,22 @@ var _GameService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SendMail",
 			Handler:    _GameService_SendMail_Handler,
+		},
+		{
+			MethodName: "GetRoomList",
+			Handler:    _GameService_GetRoomList_Handler,
+		},
+		{
+			MethodName: "CreateRoom",
+			Handler:    _GameService_CreateRoom_Handler,
+		},
+		{
+			MethodName: "JoinRoom",
+			Handler:    _GameService_JoinRoom_Handler,
+		},
+		{
+			MethodName: "LeaveRoom",
+			Handler:    _GameService_LeaveRoom_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -159,15 +495,32 @@ var _GameService_serviceDesc = grpc.ServiceDesc{
 func init() { proto.RegisterFile("game_20.proto", fileDescriptor0) }
 
 var fileDescriptor0 = []byte{
-	// 155 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x4d, 0x4f, 0xcc, 0x4d,
-	0x8d, 0x37, 0x32, 0xd0, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x03, 0x53, 0xc5, 0x4a, 0xa6,
-	0x5c, 0xdc, 0xbe, 0x89, 0x99, 0x39, 0x41, 0xa9, 0x85, 0xa5, 0xa9, 0xc5, 0x25, 0x42, 0x42, 0x5c,
-	0x2c, 0x20, 0xae, 0x04, 0xa3, 0x02, 0xa3, 0x06, 0x67, 0x10, 0x98, 0x0d, 0x12, 0x0b, 0x49, 0xad,
-	0x28, 0x91, 0x60, 0x82, 0x88, 0x81, 0xd8, 0x4a, 0x72, 0x5c, 0x3c, 0x10, 0x6d, 0xc5, 0x05, 0xf9,
-	0x79, 0xc5, 0xa9, 0x42, 0x7c, 0x5c, 0x4c, 0xfe, 0xd9, 0x60, 0x5d, 0x1c, 0x41, 0x4c, 0xfe, 0xd9,
-	0x46, 0x6e, 0x5c, 0xdc, 0xee, 0x89, 0xb9, 0xa9, 0xc1, 0xa9, 0x45, 0x65, 0x99, 0xc9, 0xa9, 0x42,
-	0xe6, 0x5c, 0x1c, 0xc1, 0xa9, 0x79, 0x29, 0x60, 0xe3, 0x84, 0x21, 0x2e, 0x28, 0xd6, 0x43, 0xb2,
-	0x57, 0x4a, 0x04, 0x55, 0x10, 0x62, 0xaa, 0x12, 0x43, 0x12, 0xc4, 0x99, 0xc6, 0x80, 0x00, 0x00,
-	0x00, 0xff, 0xff, 0x32, 0x9f, 0xbb, 0xc1, 0xbe, 0x00, 0x00, 0x00,
+	// 425 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x53, 0x51, 0x8f, 0xd2, 0x40,
+	0x10, 0xee, 0x95, 0xf3, 0x42, 0xa7, 0x9e, 0x31, 0x03, 0x18, 0xd2, 0x43, 0x73, 0xd9, 0x97, 0xe3,
+	0x5e, 0x2e, 0xb5, 0xc4, 0xf8, 0x66, 0x8c, 0x68, 0x08, 0x04, 0x24, 0xd9, 0xf2, 0x4e, 0xaa, 0x0c,
+	0xa6, 0x81, 0x76, 0xb1, 0x2d, 0x44, 0xff, 0xb5, 0x3f, 0xc1, 0xec, 0x16, 0xe8, 0xb6, 0x34, 0xc6,
+	0xa7, 0xce, 0xce, 0x7c, 0xf3, 0x7d, 0xb3, 0xfb, 0x4d, 0xe1, 0xf6, 0x47, 0x10, 0xd1, 0xd2, 0x73,
+	0x9f, 0x76, 0x89, 0xc8, 0x04, 0xde, 0xa8, 0x4f, 0xca, 0xbe, 0xc0, 0x2d, 0x17, 0x22, 0xfa, 0x94,
+	0x84, 0xb4, 0x1e, 0xc7, 0x6b, 0x81, 0xaf, 0xe0, 0x26, 0x11, 0x22, 0x1a, 0xaf, 0xba, 0x57, 0xf7,
+	0x57, 0xfd, 0x67, 0xfc, 0x78, 0xc2, 0x1e, 0x58, 0xbb, 0x6d, 0xf0, 0x9b, 0x92, 0xaf, 0xfb, 0xa8,
+	0x6b, 0xaa, 0x52, 0x91, 0x60, 0x8f, 0xd0, 0x19, 0x7a, 0xfe, 0x72, 0x44, 0x99, 0x64, 0x9b, 0x86,
+	0x69, 0xb6, 0xf4, 0x5c, 0xd7, 0x75, 0xf1, 0x25, 0x34, 0xf6, 0x61, 0xce, 0xd5, 0xe0, 0x32, 0x64,
+	0x0b, 0xe8, 0xf8, 0xde, 0xb0, 0x1e, 0x9a, 0x50, 0x76, 0x94, 0x95, 0x21, 0x3e, 0xc2, 0xb5, 0x54,
+	0xef, 0x9a, 0xf7, 0x8d, 0xbe, 0xed, 0x75, 0xf2, 0xd1, 0xd3, 0xa7, 0xd2, 0xc0, 0x5c, 0x41, 0x58,
+	0x1f, 0xda, 0x72, 0x80, 0x61, 0x42, 0x41, 0x46, 0x12, 0xa0, 0x48, 0xdf, 0xd6, 0xe8, 0x7f, 0x84,
+	0xb6, 0xd4, 0xaf, 0x43, 0x56, 0xe4, 0x8b, 0xa7, 0x30, 0xf5, 0xa7, 0x60, 0x1f, 0x00, 0xa5, 0xd6,
+	0x44, 0x84, 0xf1, 0xb9, 0xdf, 0xbb, 0x54, 0xfa, 0x57, 0xbf, 0x9c, 0xe0, 0xb2, 0xff, 0x3f, 0xf5,
+	0x1f, 0xa0, 0x25, 0xf5, 0xa7, 0x14, 0x1c, 0x8a, 0x0b, 0x0c, 0x6a, 0xae, 0xfa, 0x00, 0x2d, 0x29,
+	0x54, 0x03, 0x2c, 0x2b, 0xb1, 0x77, 0x60, 0xcf, 0x82, 0x70, 0xcb, 0xe9, 0xe7, 0x9e, 0xd2, 0x0c,
+	0x11, 0xae, 0xe5, 0x51, 0x21, 0x2c, 0xae, 0x62, 0x99, 0x5b, 0xd0, 0xaf, 0x4c, 0x8d, 0x62, 0x71,
+	0x15, 0xb3, 0x37, 0xf0, 0x3c, 0x6f, 0x4b, 0x77, 0x22, 0x4e, 0x09, 0x5f, 0x80, 0x39, 0xdf, 0xa8,
+	0xae, 0x26, 0x37, 0xe7, 0x1b, 0xef, 0x8f, 0x09, 0xf6, 0x28, 0x88, 0xc8, 0xa7, 0xe4, 0x10, 0x7e,
+	0x27, 0x7c, 0x0f, 0x4d, 0x9f, 0xe2, 0x95, 0xe2, 0x6b, 0x9d, 0xdc, 0xd4, 0x84, 0x9d, 0x76, 0x39,
+	0x99, 0xd3, 0x32, 0x03, 0x67, 0x60, 0x6b, 0xfb, 0x82, 0xaf, 0x4f, 0xb0, 0xda, 0x9d, 0x73, 0xce,
+	0xe5, 0xda, 0x3d, 0x63, 0x06, 0x4e, 0x00, 0x0a, 0xfb, 0xb1, 0xa7, 0xb3, 0x55, 0xd7, 0xc2, 0xe9,
+	0xe9, 0x64, 0xd5, 0x2a, 0x33, 0xf0, 0x33, 0x34, 0x4f, 0x46, 0xa2, 0xa3, 0x33, 0x95, 0xed, 0x75,
+	0x1c, 0x9d, 0xa7, 0x5c, 0x63, 0x06, 0x8e, 0xc0, 0x3a, 0xbb, 0x84, 0x77, 0x3a, 0x4d, 0xc5, 0x3c,
+	0xe7, 0x4e, 0xe7, 0xa9, 0x14, 0x99, 0xf1, 0x2d, 0xff, 0xaf, 0x07, 0x7f, 0x03, 0x00, 0x00, 0xff,
+	0xff, 0x7c, 0x32, 0x98, 0x51, 0xef, 0x03, 0x00, 0x00,
 }
