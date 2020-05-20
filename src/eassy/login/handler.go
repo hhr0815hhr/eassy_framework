@@ -1,13 +1,22 @@
 package login
 
 import (
+	"encoding/json"
 	"game_framework/src/eassy/login/accounts"
 	"game_framework/src/eassy/util"
 	"log"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 )
+
+type LoginJson struct {
+	Phone   string
+	AccPwd  string
+	ReqType int
+	Flag    string
+}
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(403)
@@ -44,15 +53,18 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(400)
 		return
 	}
-	phone := r.Form["phone"][0]
-	accPwd := r.Form["accPwd"][0]
-	reqType := r.Form["reqType"][0]
-	flag := r.Form["flag"][0]
-	md5str := strings.ToUpper(util.MD5(Md5Key + phone + accPwd + reqType))
+	var jData LoginJson
+	data := r.Form["data"][0]
+	_ = json.Unmarshal([]byte(data), &jData)
+	phone := jData.Phone     // r.Form["phone"][0]
+	accPwd := jData.AccPwd   // r.Form["accPwd"][0]
+	reqType := jData.ReqType // r.Form["reqType"][0]
+	flag := jData.Flag       //r.Form["flag"][0]
+	md5str := strings.ToUpper(util.MD5(Md5Key + phone + accPwd + strconv.Itoa(reqType)))
 	if md5str == strings.ToUpper(flag) {
 		//md5验证通过
 		switch reqType {
-		case "1":
+		case 1:
 			//register
 			// todo 过滤字符
 			if ok, _ := accounts.Acc.FindAccount(phone); ok {
@@ -76,7 +88,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 				Msg:  "注册失败！",
 				Data: nil,
 			})
-		case "2":
+		case 2:
 			//login
 			if ok, acc := accounts.Acc.FindAccount(phone); ok {
 				if util.MD5(accPwd) == acc.Pwd {
@@ -103,7 +115,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 				Msg:  "账号或密码错误！",
 				Data: nil,
 			})
-		case "3": //修改密码 手机验证码
+		case 3: //修改密码 手机验证码
 
 		default:
 			log.Fatal("请求类型错误")

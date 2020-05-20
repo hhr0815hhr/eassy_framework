@@ -6,6 +6,7 @@ import (
 	"game_framework/src/eassy/service/codecService"
 	"game_framework/src/eassy/service/idService"
 	"golang.org/x/net/websocket"
+	"log"
 	"sync"
 )
 
@@ -64,14 +65,16 @@ func (p *Cli) RecvData() {
 	for {
 		var content []byte
 		if err := websocket.Message.Receive(p.Conn, &content); err != nil {
+			CliManager.DisConnect(p.Conn)
 			break
 		}
 		if len(content) == 0 || len(content) >= 4096 {
+			CliManager.DisConnect(p.Conn)
 			break
 		}
 		go p.handleData(content)
 	}
-
+	p.Conn.Close()
 }
 
 func (p *Cli) handleData(content []byte) {
@@ -99,6 +102,9 @@ func (p *Cli) handleData(content []byte) {
 
 func (p *Cli) Send(protoId int, buffer []byte) {
 	bytes := msg.PkgEncode(msg.TYPE_DATA, msg.MsgPack(protoId, buffer))
-	websocket.Message.Send(p.Conn, bytes)
+	err := websocket.Message.Send(p.Conn, bytes)
+	if err != nil {
+		log.Fatal(err)
+	}
 	//p.Conn.Write(bytes)
 }

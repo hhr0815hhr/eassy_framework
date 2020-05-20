@@ -1,6 +1,7 @@
 package gate
 
 import (
+	"fmt"
 	"golang.org/x/net/websocket"
 	"net/http"
 )
@@ -18,6 +19,7 @@ func Run(port string) {
 
 func handler(ws *websocket.Conn) {
 	cli := CliManager.Connect(ws)
+	fmt.Println("新连接建立", cli)
 	cli.RecvData()
 
 	//data := ws.Request().URL.Query().Get("data")

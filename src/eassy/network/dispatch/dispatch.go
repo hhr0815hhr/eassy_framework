@@ -27,11 +27,11 @@ func Dispatch(protoId int, msg interface{}) (resp interface{}) {
 		log.Fatal(err)
 		return
 	}
-
 	//实例化service客户端
 	switch protoPrefix {
 	case 1:
 		c := pb.NewUserServiceClient(conn)
+
 		resp = userHandle(c, msgService.GetMsgService().GetMethodByRouteId(protoId), msg)
 	case 2:
 		c := pb.NewGameServiceClient(conn)
